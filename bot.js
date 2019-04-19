@@ -15,9 +15,11 @@
     -> http://howdy.ai/botkit
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-var env = require("node-env-file");
-env(__dirname + "/.env");
-
+const fs = require("fs");
+if (fs.existsSync("/.env")) {
+  var env = require("node-env-file");
+  env(__dirname + "/.env");
+}
 var Botkit = require("botkit");
 var debug = require("debug")("botkit:main");
 
@@ -31,9 +33,9 @@ var bot_options = {
 const watsonMiddleware = require("botkit-middleware-watson")({
   iam_apikey: "vRhSJuUrGu6S37DENlL8EBjLHh98C-d1Fd00l68Ue0LH",
   url: "https://gateway-fra.watsonplatform.net/assistant/api",
-  workspace_id:"43b03724-0562-4b71-a71f-e2fb875f71ec",
+  workspace_id: "43b03724-0562-4b71-a71f-e2fb875f71ec",
   minimum_confidence: 0.75, // (Optional) Default is 0.75
-  version: '2019-02-28',
+  version: "2019-02-28"
 });
 
 // Use a mongo database if specified, otherwise store in a JSON file local to the app.
